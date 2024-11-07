@@ -1,0 +1,13 @@
+streamlit
+streamlit-option-menu
+streamlit-lottie
+google-generativeai
+pandasai
+PyPDF2
+tiktoken
+faiss-cpu
+python-dotenv
+pandas
+matplotlib
+Pillow
+langchain
