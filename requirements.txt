@@ -6,8 +6,11 @@ pandasai
 PyPDF2
 tiktoken
 faiss-cpu
-python-dotenv
+dotenv
 pandas
 matplotlib
 Pillow
 langchain
+openai
+transformers
+sentence-transformers
