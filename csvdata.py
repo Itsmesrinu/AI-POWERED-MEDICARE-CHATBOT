@@ -7,7 +7,9 @@ import os
 import pandas as pd
 from pandasai import SmartDataframe
 import matplotlib
-matplotlib.use('TkAgg')
+
+# Use a non-interactive backend
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 
@@ -19,11 +21,9 @@ def load_lottieur(url):
 
 l1 = "https://lottie.host/2f7cf9a0-3475-430c-87c7-1664b5e17660/GUdpy07yaC.json"
 
+openai_api_key = "API KEY"
 
-
-openai_api_key ="API KEY"
-
-def chat_with_csv(df,prompt):
+def chat_with_csv(df, prompt):
     llm = OpenAI(api_token=openai_api_key)
     pandas_ai = SmartDataframe(df, config={"llm": llm})
     result = pandas_ai.chat(prompt)
@@ -49,7 +49,7 @@ def csv():
             st.markdown("Pose Your Queries: Use the text input field to ask natural language questions about your data. For instance, inquire about trends or averages such as `What are the sales trends?` or `What is the average revenue?`")
             st.write("Analyze Your Results: Instantly receive insights and visualizations tailored to your query. Dive into the provided results to gain a comprehensive understanding of your dataset.")
             st.write("Iterate and Explore: Experiment with different queries and visualizations to uncover valuable patterns, trends, and anomalies. Iterate as needed to refine your analysis and extract actionable insights.")
-            st.write("With these instructions, you're ready to harness the power of AI for seamless CSV data analysis. Lets explore yourdata together!")
+            st.write("With these instructions, you're ready to harness the power of AI for seamless CSV data analysis. Let's explore your data together!")
 
     with col2:
         st_lottie(l1)
@@ -62,22 +62,23 @@ def csv():
         selected_file = st.selectbox("Select a CSV file", [file.name for file in input_csvs])
         selected_index = [file.name for file in input_csvs].index(selected_file)
 
-        #load and display the selected csv file 
+        # Load and display the selected CSV file 
         st.info("CSV uploaded successfully")
         data = pd.read_csv(input_csvs[selected_index])
-        st.dataframe(data,use_container_width=True)
+        st.dataframe(data, use_container_width=True)
 
-        #Enter the query for analysis
+        # Enter the query for analysis
         st.info("Chat Below")
         input_text = st.text_area("Enter the query")
 
-        #Perform analysis
+        # Perform analysis
         if st.button("Chat with csv"):
             if input_text:
-                st.info("Your Query: "+ input_text)
-                result = chat_with_csv(data,input_text)
-                fig_number = plt.get_fignums()
-                if fig_number:
-                    st.pyplot(plt.gcf())
+                st.info("Your Query: " + input_text)
+                result = chat_with_csv(data, input_text)
+
+                # Create a plot if result contains data for plotting
+                if isinstance(result, plt.Figure):  # Check if the result is a figure
+                    st.pyplot(result)
                 else:
                     st.success(result)
