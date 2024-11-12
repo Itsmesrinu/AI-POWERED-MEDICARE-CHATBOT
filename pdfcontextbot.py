@@ -12,7 +12,6 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 
 
-
 def load_lottieur(url):
     r = requests.get(url)
     if r.status_code != 200:
@@ -22,19 +21,17 @@ def load_lottieur(url):
 l1 = "https://lottie.host/bebe1ee0-b4b6-4e99-8c43-b3d881996b31/GTKVqgNDU8.json"
 
 
-
 # Add your API key here directly
 GOOGLE_API_KEY = "API KEY"
 genai.configure(api_key=GOOGLE_API_KEY)
 
 def get_pdf_text(pdf_docs):
-    text=""
+    text = ""
     for pdf in pdf_docs:
-        pdf_reader= PdfReader(pdf)
+        pdf_reader = PdfReader(pdf)
         for page in pdf_reader.pages:
-            text+= page.extract_text()
-    return  text
-
+            text += page.extract_text()
+    return text
 
 
 def get_text_chunks(text):
@@ -48,12 +45,10 @@ def get_vector_store(text_chunks, api_key):
     vector_store.save_local("faiss_index")
 
 
-
-
 def get_conversational_chain():
     prompt_template = """
-    Answer the question as detailed as possible from the provided context, make sure to provide all the details, if the answer is not in
-    provided context just say, "answer is not available in the context", don't provide the wrong answer\n\n
+    Answer the question as detailed as possible from the provided context. If the answer is not in
+    the provided context, just say, "Answer is not available in the context." Do not provide the wrong answer.\n\n
     Context:\n {context}?\n
     Question: \n{question}\n
 
@@ -72,8 +67,6 @@ def get_conversational_chain():
     return chain
 
 
-
-
 def user_input(user_question):
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=GOOGLE_API_KEY)
     
@@ -82,7 +75,6 @@ def user_input(user_question):
 
     chain = get_conversational_chain()
 
-    
     response = chain(
         {"input_documents": docs, "question": user_question},
         return_only_outputs=True
@@ -92,39 +84,37 @@ def user_input(user_question):
     st.write("Reply: ", response["output_text"])
 
 
-
-
-
 def pdfcontextbot():
-    st.header("Chat with PDF Context")
+    st.header("Chat with Medical PDF Context")
     col1, col2 = st.columns(2)
     with col1:
         st.subheader(" ")
         st.subheader(" ")
-        st.subheader("Leverages the power of AI to provide contextual responses to your questions based on the content of uploaded PDF files. By analyzing the text within these documents, our chatbot can offer insightful answers tailored to your queries, enhancing your understanding and exploration of PDF content.")
+        st.subheader("Leverage the power of AI to provide medical insights based on the content of uploaded medical reports. By analyzing the text within these documents, our chatbot offers accurate responses to health-related questions, enhancing your understanding of medical information.")
         
         # Hide the disclaimer initially
         st.write("")
 
         # Show the disclaimer if the button is clicked
         with st.expander("Disclaimer ⚠️", expanded=False):
-            st.markdown("***Instructions for PDF Context Chat***")
-            st.write("Ask a Question: Begin by entering your question in the text input field provided. You can inquire about specific topics or seek clarification on information contained within the PDF files.")
-            st.markdown("Submit & Process: After typing your question, click on the `Submit & Process` button to initiate the analysis of the uploaded PDF files. This action triggers the chatbot to provide a response based on the context found within these documents.")
-            st.write("View Response: Once the processing is complete, the chatbot generates a response to your question. The answer will be displayed below the text input field, allowing you to read the contextually relevant information provided by the chatbot.")
-            st.write("Explore Further: Delve deeper into the content of the PDF files by asking additional questions or exploring related topics. The chatbot remains available to assist you in navigating and understanding the context within the documents.")
-            st.write("With these instructions, you're ready to engage with our PDF Context Chatbot and unlock the insights hidden within your PDF files!")
+            st.markdown("***Instructions for Medical PDF Context Chat***")
+            st.write("Ask a Question: Enter your question in the text input field to inquire about specific medical topics or seek clarification on information contained within the medical reports.")
+            st.markdown("Submit & Process: After typing your question, click the `Submit & Process` button to initiate the analysis of the uploaded medical PDF files. The chatbot will provide a response based on the context found within these documents.")
+            st.write("View Response: Once processing is complete, the chatbot will generate a response to your question. The answer will be displayed below the input field, providing relevant medical insights from the document.")
+            st.write("Explore Further: Continue asking questions to delve deeper into the medical content. The chatbot is always available to assist you in navigating the context within the medical reports.")
+            st.write("With these instructions, you're ready to engage with our Medical PDF Context Chatbot and unlock the medical insights hidden within your documents!")
 
     with col2:
         st_lottie(l1)
-    user_question = st.text_input("Ask a Question from the PDF Files")
+    
+    user_question = st.text_input("Ask a Medical Question from the PDF Files")
 
     if user_question:
         user_input(user_question)
 
     with st.sidebar:
         st.title("Menu:")
-        pdf_docs = st.file_uploader("Upload your PDF Files and Click on the Submit & Process Button", accept_multiple_files=True)
+        pdf_docs = st.file_uploader("Upload your Medical PDF Files and Click 'Submit & Process'", accept_multiple_files=True)
         if st.button("Submit & Process"):
             with st.spinner("Processing..."):
                 raw_text = get_pdf_text(pdf_docs)
