@@ -13,7 +13,7 @@ from object_det import object_det
 
 def main():
     st.set_page_config(layout='wide')
-    st.sidebar.image(r"..\LangChain_LLm_Data\images\logomedi.png")
+    st.sidebar.image(r"logomedi.png")
     navigation = st.sidebar.selectbox("Menu", ["HOME","ABOUT","PDF DATA ANALYSIS","PDF CONTEXT CHAT BOT","CSV DATA ANALYSIS","OBJECT DATA ANALYSIS","CHAT WITH ME"])
 
     
