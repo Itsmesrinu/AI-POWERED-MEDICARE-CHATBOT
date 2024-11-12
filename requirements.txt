@@ -46,7 +46,7 @@ pydantic-settings
 pyls-spyder
 PyQt5
 PyQtWebEngine
-pywin32
+pywin32==304
 rsa
 setuptools
 sqlglot
