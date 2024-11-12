@@ -13,7 +13,6 @@ def load_lottieur(url):
 
 l1 = "https://lottie.host/3244e710-2470-4ade-8d4f-2654e645be11/loLAddQjXP.json"
 
-
 GOOGLE_API_KEY = "API KEY"
 genai.configure(api_key=GOOGLE_API_KEY)
 
@@ -25,68 +24,62 @@ generation_config = {
   "max_output_tokens": 1024,
 }
 
-
 def object_det():
-    st.title("Object Finder 🔍")
+    st.title("Medical Image Analysis 🔍")
     col1, col2 = st.columns(2)
     with col1:
         st.subheader(" ")
         st.subheader(" ")
         st.subheader(" ")
-        st.subheader("Our platform leverages cutting-edge object detection technology to analyze images and identify objects within them. Whether you're exploring images for research, education, or curiosity, our tool provides accurate and efficient object detection capabilities.")
+        st.subheader("Leverage cutting-edge AI technology for medical image analysis. Our platform identifies key objects and areas in medical images, assisting in diagnostics, research, and improving overall patient care.")
         
         # Hide the disclaimer initially
         st.write("")
 
         # Show the disclaimer if the button is clicked
         with st.expander("Disclaimer ⚠️", expanded=False):
-            st.markdown("***Instructions for Image Data Analysis***")
-            st.write("Upload Your Image: Start by uploading an image containing the objects you want to identify. Use the file uploader to select an image from your device.")
-            st.write("Explore Image Details: Once uploaded, the image will be displayed on the interface along with its dimensions. Take a moment to review the image details.")
-            st.write("Pose Your Question: Optionally, input a question related to the image in the provided text input field. This can help contextualize the object detection process.")
-            st.markdown("Initiate Object Detection: Click the `Identify the objects` button to initiate the object detection process. Our AI model will analyze the image and identify objects within it.")
-            st.write("View Detected Objects: Upon completion, the identified objects will be listed on the interface. Explore the list to see which objects were detected.")
-            st.write("Iterate and Explore: Experiment with different images and questions to explore the capabilities of our object detection tool. Iterate as needed to refine your analysis and gain insights from various images.")
-            st.write("With these instructions, you're ready to utilize our Object Finder tool to analyze images and identify objects with ease. Let's uncover the secrets hidden within your images!")
+            st.markdown("***Instructions for Medical Image Analysis***")
+            st.write("Upload Your Medical Image: Start by uploading an image, such as an X-ray, MRI, or other medical imagery, using the file uploader.")
+            st.write("Explore Image Details: Once uploaded, the image will be displayed along with its dimensions. Review the image details before proceeding.")
+            st.write("Pose Your Medical Query: Optionally, input a specific question related to the medical image, such as ‘Identify abnormalities in the lung region’.")
+            st.markdown("Initiate Object Detection: Click the `Identify the objects` button to analyze the medical image. Our AI model will detect and list objects or areas of interest, providing context for further analysis.")
+            st.write("View Detected Objects: The identified objects or areas of interest will be displayed on the interface. Use these insights to assist in diagnostics or medical research.")
+            st.write("Iterate and Explore: Experiment with different medical images to explore the full capabilities of our image analysis tool. Iterate to refine your medical image analysis and gather valuable insights.")
+            st.write("With these instructions, you're ready to utilize our Medical Image Analysis tool for accurate and insightful analysis. Let's unlock the power of AI for medical imaging!")
 
     with col2:
         st_lottie(l1)
 
-    disclaimer_message = """This is a object detector model so preferably use images containing different objects,tools... for best results 🙂"""
+    disclaimer_message = """This tool is optimized for medical images such as X-rays, MRIs, and CT scans. Upload medical images for the best results 🙂"""
 
     # Hide the disclaimer initially
     st.write("")
 
     # Show the disclaimer if the button is clicked
     with st.expander("Disclaimer ⚠️", expanded=False):
-       st.markdown(disclaimer_message)
+        st.markdown(disclaimer_message)
     
-
-    # Upload image through Streamlit
-    uploaded_image = st.file_uploader("Choose an image ...", type=["jpg", "jpeg", "png"])
+    # Upload medical image through Streamlit
+    uploaded_image = st.file_uploader("Choose a medical image (X-ray, MRI, etc.) ...", type=["jpg", "jpeg", "png"])
 
     if uploaded_image is not None:
         # Display the uploaded image
-        st.image(uploaded_image, caption="Uploaded Image.", use_column_width=True)
+        st.image(uploaded_image, caption="Uploaded Medical Image.", use_column_width=True)
 
         # Process the image (example: get image dimensions)
         image = Image.open(uploaded_image)
         width, height = image.size
         st.write("Image Dimensions:", f"{width}x{height}")
 
-        question = st.text_input("Question?")
+        question = st.text_input("Medical Query? (e.g., Identify abnormalities in the lung)")
 
         if st.button("Identify the objects"):
 
             st.success("Detecting...")
 
             vision_model = genai.GenerativeModel('gemini-1.5-pro')
-            response = vision_model.generate_content([question,image])
+            response = vision_model.generate_content([question, image])
 
-            
-            st.write("The objects detected are \n", response.text)
+            st.write("The objects or areas detected are: \n", response.text)
 
-            st.success("Thanks for visiting 🤩!!")
-
-
-
+            st.success("Thanks for using the Medical Image Analysis tool! 🤩")
