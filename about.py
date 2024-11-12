@@ -2,7 +2,6 @@ import streamlit as st
 from streamlit_lottie import st_lottie
 import requests
 
-
 def load_lottieur(url):
     r = requests.get(url)
     if r.status_code != 200:
@@ -25,10 +24,11 @@ def about():
         st.header(" ")
         st.header(" ")
         st.header(" ")
-        st.subheader("Welcome to AI Powered Data Analysis Chatbot, an innovative platform that harnesses the power of AI to revolutionize data analysis and interaction. Our project combines cutting-edge technologies to deliver seamless experiences for analyzing PDF and CSV data, identifying objects in images, and engaging in natural language conversations.")
+        st.subheader("Welcome to AI-Powered Medicare ChatBot, a revolutionary platform that leverages AI to provide real-time medical insights and healthcare assistance. Our project combines cutting-edge AI technologies to analyze medical reports, patient data, and health-related images, while engaging users in intelligent conversations about their health and medical needs.")
     with col2:
         st_lottie(l1)
     st.write("---")
+    
     col3, col4 = st.columns(2)
     with col3:
         st_lottie(l2)
@@ -37,22 +37,25 @@ def about():
         st.header(" ")
         st.header(" ")
         st.title("Our Mission")
-        st.subheader("Empowering individuals and organizations with innovative AI technologies to unlock valuable insights from their data effortlessly and efficiently. Driven by our passion for technology and our commitment to delivering unparalleled value, we strive to:")
-        st.markdown("- **Empower**: Empower individuals and organizations with the tools and insights needed to make informed decisions and drive meaningful outcomes.")
-        st.markdown("- **Innovate**: Continuously innovate and push the boundaries of what is possible, leveraging the latest advancements in AI and data analysis to stay ahead of the curve.")
-        st.markdown("- **Simplify**: Simplify the complexities of data analysis and interaction, making advanced technologies accessible and user-friendly for everyone.")
+        st.subheader("Empowering individuals and healthcare providers with innovative AI-driven tools to unlock valuable insights from medical data effortlessly and securely. Our goal is to enhance patient care by delivering cutting-edge healthcare solutions through AI.")
+        st.markdown("- **Empower**: Empower patients and healthcare professionals with the tools and insights needed for informed medical decisions.")
+        st.markdown("- **Innovate**: Push the boundaries of healthcare technology by leveraging the latest advancements in AI and medical data analysis.")
+        st.markdown("- **Simplify**: Simplify healthcare data analysis and interaction, making advanced AI technologies accessible and easy-to-use for everyone.")
 
     st.write("---")
+    
     col9, col10 = st.columns(2)
     with col9:
         st.header(" ")
         st.header(" ")
         st.header(" ")
-        st.title("Our Commitment to Excellence")
-        st.subheader("At Genesis AI, we are dedicated to delivering excellence in every aspect of our service. From cutting-edge AI technologies to intuitive user interfaces, we strive to provide a seamless and unparalleled experience for our users.")
+        st.title("Our Commitment to Healthcare Excellence")
+        st.subheader("At Medicare AI, we are dedicated to delivering excellence in healthcare services through AI. Our platform combines cutting-edge AI technologies with intuitive user interfaces to provide a seamless experience in medical data analysis and patient care.")
     with col10:
         st_lottie(l7)
+    
     st.write("---")
+    
     col11, col12 = st.columns(2)
     with col11:
         st_lottie(l8)
@@ -60,31 +63,33 @@ def about():
         st.header(" ")
         st.header(" ")
         st.header(" ")
-        st.title("Data-driven Innovation")
-        st.subheader("We believe in the power of data to drive innovation and transformation. Our platform empowers individuals and organizations to harness the full potential of their data, enabling them to make informed decisions and unlock new opportunities for growth.")
+        st.title("Data-driven Medical Innovation")
+        st.subheader("We believe in the power of data to drive healthcare innovation. Our platform empowers individuals and healthcare providers to unlock the full potential of their medical data, enabling better patient outcomes and more informed decision-making.")
+
     # Add footer with CSS for fixed positioning
     st.write("---")
-    st.title("Explore Our Advanced Features")
+    st.title("Explore Our Advanced Healthcare Features")
+    
     col5, col6, col7, col8 = st.columns(4)
     with col5:
         st_lottie(l3)
-        st.write("PDF Data Analysis")
-        st.write("Analyze PDF documents with precision. Engage with an AI-powered chatbot trained on PDF content. Extract actionable insights and knowledge from textual data effortlessly.") 
+        st.write("PDF Medical Report Analysis")
+        st.write("Analyze PDF medical reports with precision. Engage with an AI-powered chatbot to extract actionable insights and knowledge from health data effortlessly.") 
 
     with col6:
         st_lottie(l4)
-        st.write("CSV Data Analysis")
-        st.write("Visualize and analyze CSV data with ease.Pose natural language queries for data exploration.Access instant insights and visualizations to drive informed decisions.")
+        st.write("CSV Patient Data Analysis")
+        st.write("Visualize and analyze patient data from CSV files with ease. Pose natural language queries for patient data exploration and receive instant medical insights.")
 
     with col7:
         st_lottie(l5)
-        st.write("Object Data Analysis")
-        st.write("Harness state-of-the-art object detection algorithms.Identify objects within images accurately and efficiently.Simplify image analysis and object recognition tasks.")
+        st.write("Medical Image Analysis")
+        st.write("Utilize advanced object detection algorithms for medical images. Accurately identify objects within images to assist in diagnosis and analysis.")
 
     with col8:
         st_lottie(l6)
-        st.write("Conversational AI")
-        st.write("Engage in insightful conversations powered by AI. Receive intelligent responses tailored to your inquiries. Experience seamless interaction and communication for enhanced productivity.")
+        st.write("Conversational Medical AI")
+        st.write("Engage in insightful medical conversations powered by AI. Receive intelligent responses tailored to your health inquiries and improve patient care through AI.")
 
     st.markdown(
         """
@@ -99,10 +104,9 @@ def about():
         }
         </style>
         <div class="footer">
-            Powered by Genesis AI ©️ 2024
+            Powered by Medicare AI ©️ 2024
         </div>
         """,
         unsafe_allow_html=True
     )
 
-# You can then call the about function in your main app.py file
