@@ -1,16 +1,14 @@
 import streamlit as st
 from streamlit_lottie import st_lottie
 import requests
-# from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings, HuggingFaceInstructEmbeddings
+from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from htmltemplate import css, bot_template, user_template
-from langchain.llms import HuggingFaceHub
 
 
 def load_lottieur(url):
@@ -73,7 +71,6 @@ def handle_userinput(user_question):
 
 
 def pdf():
-    # load_dotenv()
     st.write(css, unsafe_allow_html=True)
 
     if "conversation" not in st.session_state:
@@ -81,31 +78,27 @@ def pdf():
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = None
 
-    st.title("PDF's Data Analysis Chatbot")
+    st.title("PDF Medical Report Analysis")
     col1, col2 = st.columns(2)
     with col1:
         st.subheader(" ")
         st.subheader(" ")
-        st.subheader("Unlock the potential of PDF documents with our advanced analysis capabilities. Seamlessly engage with AI-powered chatbots trained specifically on PDF content. Effortlessly extract actionable insights and gain a deeper understanding of your documents like never before.")
+        st.subheader("Unlock the potential of medical reports with our advanced analysis capabilities. Seamlessly engage with AI-powered chatbots trained specifically on medical content. Effortlessly extract actionable insights and gain a deeper understanding of your health data.")
         
-        # Hide the disclaimer initially
-        st.write("")
-
-        # Show the disclaimer if the button is clicked
         with st.expander("Disclaimer ⚠️", expanded=False):
-            st.markdown("***Instructions for PDF Data Analysis***")
-            st.write("Upload Your PDF Files: Start by uploading your PDF documents using the provided file uploader.")
-            st.write("Select Your Document: After uploading, select the PDF document you wish to analyze from the dropdown menu.")
-            st.write("Extract Text: Once selected, the platform will extract text from the PDF document and display it for analysis.")
-            st.write("Interact with AI Chatbot: Engage with an AI-powered chatbot trained on the content of the PDF document. Ask questions, seek explanations, or request summaries to gain deeper insights.")
-            st.write("Analyze Document Content: Utilize the chatbot's responses and the extracted text to analyze the content of the PDF document. Identify key points, trends, or patterns to inform your analysis.")
-            st.write("Extract Insights: Extract actionable insights from the document content and the chatbot interactions. Use these insights to make informed decisions or guide further exploration.")
-            st.write("Iterate and Explore: Experiment with different questions and analysis approaches to uncover hidden insights within the PDF document. Iterate as needed to refine your analysis and extract valuable knowledge.")
-            st.write("With these instructions, you're equipped to leverage the power of AI for seamless PDF data analysis. Let's unlock the secrets hidden within your documents!")
+            st.markdown("***Instructions for PDF Medical Report Analysis***")
+            st.write("1. Upload Your PDF Medical Files: Start by uploading your medical reports using the provided file uploader.")
+            st.write("2. Select Your Document: After uploading, select the medical report you wish to analyze from the dropdown menu.")
+            st.write("3. Extract Text: Once selected, the platform will extract text from the PDF and display it for analysis.")
+            st.write("4. Interact with AI Chatbot: Engage with an AI-powered chatbot trained on the content of the PDF document. Ask questions, seek explanations, or request summaries to gain deeper insights into your medical data.")
+            st.write("5. Analyze Document Content: Utilize the chatbot's responses and the extracted text to analyze the content of the medical report. Identify key points or patterns relevant to healthcare.")
+            st.write("6. Extract Insights: Extract actionable medical insights from the document content and chatbot interactions. Use these insights to make informed healthcare decisions.")
+            st.write("7. Iterate and Explore: Experiment with different questions and approaches to uncover hidden insights within the medical document. Refine your analysis and extract valuable knowledge.")
 
     with col2:
         st_lottie(l1)
-    user_question = st.text_input("Ask a question about your documents")
+        
+    user_question = st.text_input("Ask a question about your medical reports")
     if user_question:
         handle_userinput(user_question)
 
@@ -125,6 +118,4 @@ def pdf():
                 vectorstore = get_vectorstore(text_chunks)
 
                 # create conversation chain
-                st.session_state.conversation = get_conversation_chain(
-                    vectorstore)
-                
+                st.session_state.conversation = get_conversation_chain(vectorstore)
