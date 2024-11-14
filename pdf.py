@@ -95,14 +95,7 @@ def pdf():
             st.write("6. Extract Insights: Extract actionable medical insights from the document content and chatbot interactions. Use these insights to make informed healthcare decisions.")
             st.write("7. Iterate and Explore: Experiment with different questions and approaches to uncover hidden insights within the medical document. Refine your analysis and extract valuable knowledge.")
 
-    with col2:
-        st_lottie(l1)
-        
-    user_question = st.text_input("Ask a question about your medical reports")
-    if user_question:
-        handle_userinput(user_question)
-
-    with st.sidebar:
+        # Moved the PDF uploader here
         st.subheader("Your documents")
         pdf_docs = st.file_uploader(
             "Upload your PDFs here and click on 'Process'", accept_multiple_files=True)
@@ -117,5 +110,13 @@ def pdf():
                 # create vector store
                 vectorstore = get_vectorstore(text_chunks)
 
-                # create conversation chain
+                # Initialize conversation chain
                 st.session_state.conversation = get_conversation_chain(vectorstore)
+
+    with col2:
+        st_lottie(l1)
+        
+    user_question = st.text_input("Ask a question about your medical reports")
+    if user_question:
+        handle_userinput(user_question)
+
