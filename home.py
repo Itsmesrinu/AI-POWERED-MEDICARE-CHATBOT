@@ -21,13 +21,13 @@ def home():
 
     col1, col2 = st.columns(2)
     with col1:
-        st.header("")
-        st.header("")
+        
         st.header("")
         st.markdown("""
         <style>
         .big-font {
-            font-size:100px !important;
+            font-size:80px !important;
+            color: rgba(173,133,71,255);
         }
         .small-font{
             font-size: 20px !
@@ -45,8 +45,7 @@ def home():
         st.write("Have questions about your medical data or reports? Need quick, accurate health insights? You're in the right place!")
 
     with col2:
-        st.header(" ")
-        st.header(" ")
+
         st.header(" ")
         st.image(r"logomedi.png")
 
@@ -70,10 +69,7 @@ def home():
 
     col7,col8 = st.columns(2)
     with col7:
-        st.header(" ")
-        st.header(" ")
-        st.header(" ")
-        st.header(" ")
+        st.header("")
         st.header("Why Choose Medicare AI?")
         st.subheader("1. Instant Medical Insights: Get actionable health insights from your reports in real-time.")
         st.subheader("2. Versatile Data Analysis: Analyze CSV, medical images, or PDFs effortlessly.")
@@ -82,6 +78,7 @@ def home():
         st.subheader("5. Powerful AI: Leveraging advanced AI technology for accurate medical analysis.")
 
     with col8:
+        st.header("")
         st_lottie(l1)
 
     st.markdown(
