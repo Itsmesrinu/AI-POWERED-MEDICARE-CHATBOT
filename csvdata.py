@@ -62,12 +62,16 @@ def csv():
             data = pd.read_csv(input_csvs[selected_index])
             st.dataframe(data, use_container_width=True)
     
-            # Enter the query for analysis
-            st.info("Chat Below")
-            input_text = st.text_area("Enter the medical query")
+            
+    with col2:
+        st_lottie(l1)
+        
+    # Enter the query for analysis
+    st.info("Chat Below")
+    input_text = st.text_area("Enter the medical query")
     
             # Perform analysis
-            if st.button("Chat with CSV"):
+    if st.button("Chat with CSV"):
                 if input_text:
                     st.info("Your Query: " + input_text)
                     result = chat_with_csv(data, input_text)
@@ -83,6 +87,4 @@ def csv():
                         result()  # Call the result if it's a plotting function
                         st.pyplot(plt.gcf())  # Display the plot
 
-    with col2:
-        st_lottie(l1)
 
