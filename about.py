@@ -23,7 +23,6 @@ def about():
         st.title("Know About Us!!")
         st.header(" ")
         st.header(" ")
-        st.header(" ")
         st.subheader("Welcome to AI-Powered Medicare ChatBot, a revolutionary platform that leverages AI to provide real-time medical insights and healthcare assistance. Our project combines cutting-edge AI technologies to analyze medical reports, patient data, and health-related images, while engaging users in intelligent conversations about their health and medical needs.")
     with col2:
         st_lottie(l1)
@@ -33,7 +32,6 @@ def about():
     with col3:
         st_lottie(l2)
     with col4:
-        st.header(" ")
         st.header(" ")
         st.header(" ")
         st.title("Our Mission")
@@ -48,7 +46,6 @@ def about():
     with col9:
         st.header(" ")
         st.header(" ")
-        st.header(" ")
         st.title("Our Commitment to Healthcare Excellence")
         st.subheader("At Medicare AI, we are dedicated to delivering excellence in healthcare services through AI. Our platform combines cutting-edge AI technologies with intuitive user interfaces to provide a seamless experience in medical data analysis and patient care.")
     with col10:
@@ -60,7 +57,6 @@ def about():
     with col11:
         st_lottie(l8)
     with col12:
-        st.header(" ")
         st.header(" ")
         st.header(" ")
         st.title("Data-driven Medical Innovation")
