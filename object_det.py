@@ -46,18 +46,20 @@ def object_det():
             st.write("View Detected Objects: The identified objects or areas of interest will be displayed on the interface. Use these insights to assist in diagnostics or medical research.")
             st.write("Iterate and Explore: Experiment with different medical images to explore the full capabilities of our image analysis tool. Iterate to refine your medical image analysis and gather valuable insights.")
             st.write("With these instructions, you're ready to utilize our Medical Image Analysis tool for accurate and insightful analysis. Let's unlock the power of AI for medical imaging!")
+        
+        disclaimer_message = """This tool is optimized for medical images such as X-rays, MRIs, and CT scans. Upload medical images for the best results 🙂"""
+
+        # Hide the disclaimer initially
+        st.write("")
+
+        # Show the disclaimer if the button is clicked
+        with st.expander("Disclaimer About Tool ⚠️", expanded=False):
+            st.markdown(disclaimer_message)
 
     with col2:
         st_lottie(l1)
 
-    disclaimer_message = """This tool is optimized for medical images such as X-rays, MRIs, and CT scans. Upload medical images for the best results 🙂"""
-
-    # Hide the disclaimer initially
-    st.write("")
-
-    # Show the disclaimer if the button is clicked
-    with st.expander("Disclaimer ⚠️", expanded=False):
-        st.markdown(disclaimer_message)
+    
     
     # Upload medical image through Streamlit
     uploaded_image = st.file_uploader("Choose a medical image (X-ray, MRI, etc.) ...", type=["jpg", "jpeg", "png"])
