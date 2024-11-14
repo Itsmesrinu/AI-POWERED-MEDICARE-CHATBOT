@@ -49,40 +49,40 @@ def csv():
             st.write("Analyze Results: Get AI-powered insights and visualizations tailored to your query. Use the results to make informed healthcare decisions.")
             st.write("Iterate and Explore: Continue asking questions and refining your analysis to extract deeper insights from the medical data. Use AI to uncover trends, anomalies, and patterns that could aid in patient care.")
             st.write("With these instructions, you're ready to leverage AI for medical CSV data analysis. Let's explore healthcare data together!")
+        # Upload multiple CSV files
+        input_csvs = st.file_uploader("Upload your Medical CSV files", type=['csv'], accept_multiple_files=True)
+
+        if input_csvs:
+            # Select a CSV file from the uploaded files using a dropdown menu
+            selected_file = st.selectbox("Select a CSV file", [file.name for file in input_csvs])
+            selected_index = [file.name for file in input_csvs].index(selected_file)
+    
+            # Load and display the selected CSV file 
+            st.info("CSV uploaded successfully")
+            data = pd.read_csv(input_csvs[selected_index])
+            st.dataframe(data, use_container_width=True)
+    
+            # Enter the query for analysis
+            st.info("Chat Below")
+            input_text = st.text_area("Enter the medical query")
+    
+            # Perform analysis
+            if st.button("Chat with CSV"):
+                if input_text:
+                    st.info("Your Query: " + input_text)
+                    result = chat_with_csv(data, input_text)
+    
+                    # Display the result
+                    if isinstance(result, str):  # Assuming result is a string response
+                        st.success(result)
+                    else:
+                        # If the result is a plot, display it
+                        plt.figure()  # Create a new figure for plotting
+                        # Assuming result could be a function that generates a plot
+                        # You might need to adjust this part based on your actual usage
+                        result()  # Call the result if it's a plotting function
+                        st.pyplot(plt.gcf())  # Display the plot
 
     with col2:
         st_lottie(l1)
 
-    # Upload multiple CSV files
-    input_csvs = st.file_uploader("Upload your Medical CSV files", type=['csv'], accept_multiple_files=True)
-
-    if input_csvs:
-        # Select a CSV file from the uploaded files using a dropdown menu
-        selected_file = st.selectbox("Select a CSV file", [file.name for file in input_csvs])
-        selected_index = [file.name for file in input_csvs].index(selected_file)
-
-        # Load and display the selected CSV file 
-        st.info("CSV uploaded successfully")
-        data = pd.read_csv(input_csvs[selected_index])
-        st.dataframe(data, use_container_width=True)
-
-        # Enter the query for analysis
-        st.info("Chat Below")
-        input_text = st.text_area("Enter the medical query")
-
-        # Perform analysis
-        if st.button("Chat with CSV"):
-            if input_text:
-                st.info("Your Query: " + input_text)
-                result = chat_with_csv(data, input_text)
-
-                # Display the result
-                if isinstance(result, str):  # Assuming result is a string response
-                    st.success(result)
-                else:
-                    # If the result is a plot, display it
-                    plt.figure()  # Create a new figure for plotting
-                    # Assuming result could be a function that generates a plot
-                    # You might need to adjust this part based on your actual usage
-                    result()  # Call the result if it's a plotting function
-                    st.pyplot(plt.gcf())  # Display the plot
