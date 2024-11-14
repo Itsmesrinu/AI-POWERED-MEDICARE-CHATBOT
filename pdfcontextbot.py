@@ -20,7 +20,6 @@ def load_lottieur(url):
 
 l1 = "https://lottie.host/bebe1ee0-b4b6-4e99-8c43-b3d881996b31/GTKVqgNDU8.json"
 
-
 # Add your API key here directly
 GOOGLE_API_KEY = "API KEY"
 genai.configure(api_key=GOOGLE_API_KEY)
@@ -33,7 +32,6 @@ def get_pdf_text(pdf_docs):
             text += page.extract_text()
     return text
 
-
 def get_text_chunks(text):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=1000)
     chunks = text_splitter.split_text(text)
@@ -43,7 +41,6 @@ def get_vector_store(text_chunks, api_key):
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=api_key)
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
-
 
 def get_conversational_chain():
     prompt_template = """
@@ -66,7 +63,6 @@ def get_conversational_chain():
 
     return chain
 
-
 def user_input(user_question):
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=GOOGLE_API_KEY)
     
@@ -82,7 +78,6 @@ def user_input(user_question):
 
     print(response)
     st.write("Reply: ", response["output_text"])
-
 
 def pdfcontextbot():
     st.header("Chat with Medical PDF Context")
@@ -104,6 +99,14 @@ def pdfcontextbot():
             st.write("Explore Further: Continue asking questions to delve deeper into the medical content. The chatbot is always available to assist you in navigating the context within the medical reports.")
             st.write("With these instructions, you're ready to engage with our Medical PDF Context Chatbot and unlock the medical insights hidden within your documents!")
 
+        # Moved the PDF uploader here
+        pdf_docs = st.file_uploader("Upload your Medical PDF Files and Click 'Submit & Process'", accept_multiple_files=True)
+        if st.button("Submit & Process"):
+            with st.spinner("Processing..."):
+                raw_text = get_pdf_text(pdf_docs)
+                text_chunks = get_text_chunks(raw_text)
+                get_vector_store(text_chunks, GOOGLE_API_KEY)  # Ensure you pass the API key
+
     with col2:
         st_lottie(l1)
     
@@ -112,12 +115,3 @@ def pdfcontextbot():
     if user_question:
         user_input(user_question)
 
-    with st.sidebar:
-        st.title("Menu:")
-        pdf_docs = st.file_uploader("Upload your Medical PDF Files and Click 'Submit & Process'", accept_multiple_files=True)
-        if st.button("Submit & Process"):
-            with st.spinner("Processing..."):
-                raw_text = get_pdf_text(pdf_docs)
-                text_chunks = get_text_chunks(raw_text)
-                get_vector_store(text_chunks, GOOGLE_API_KEY)  # Pass the API key
-                st.success("Done")
