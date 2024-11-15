@@ -30,9 +30,24 @@ def chat_with_csv(df, prompt):
 
 def csv():
     st.header("Medical Data Analysis with CSV")
+
+    st.sidebar.title("Instructions")
+    st.sidebar.write("1. Upload your CSV medical file.")
+    st.sidebar.write("2.  Click the `Submit & Process` button.")
+    st.sidebar.write("3. Type your question exactly what you want about the csv file .")
+    st.sidebar.write("4. Get insights from the AI chatbot.")
+     # Highlighted note under instructions
+    st.sidebar.markdown(
+    "<div style='background-color: rgba(173, 133, 71, 1); padding: 10px; border-radius: 5px;'>"
+    "<strong>Note:</strong><br>"
+    "*Due to the current cost of API usage, you may experience limitations in output availability.<br>"
+    "*We apologize for any inconvenience this may cause.<br>"
+    "*Rest assured, the quality of the output is excellent when accessible."
+    "</div>",
+    unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader(" ")
+        
         st.subheader(" ")
         st.subheader("Explore Patient and Medical Data: Seamlessly analyze healthcare-related CSV datasets. Engage with AI-driven analysis to ask health-related queries, generating actionable insights and dynamic visualizations for better healthcare decisions.")
         
@@ -86,5 +101,4 @@ def csv():
                         # You might need to adjust this part based on your actual usage
                         result()  # Call the result if it's a plotting function
                         st.pyplot(plt.gcf())  # Display the plot
-
 
