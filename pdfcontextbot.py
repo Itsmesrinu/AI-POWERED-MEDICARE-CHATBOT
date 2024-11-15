@@ -81,6 +81,23 @@ def user_input(user_question):
 
 def pdfcontextbot():
     st.header("Chat with Medical PDF Context")
+
+    # Sidebar instructions
+    st.sidebar.title("Instructions")
+    st.sidebar.write("1. Upload your PDF medical report.")
+    st.sidebar.write("2.  Click the `Submit & Process` button.")
+    st.sidebar.write("3. Type your question about the medical PDF.")
+    st.sidebar.write("4. Get insights from the AI chatbot.")
+     # Highlighted note under instructions
+    st.sidebar.markdown(
+    "<div style='background-color: rgba(173, 133, 71, 1); padding: 10px; border-radius: 5px;'>"
+    "<strong>Note:</strong><br>"
+    "*Due to the current cost of API usage, you may experience limitations in output availability.<br>"
+    "*We apologize for any inconvenience this may cause.<br>"
+    "*Rest assured, the quality of the output is excellent when accessible."
+    "</div>",
+    unsafe_allow_html=True)
+
     col1, col2 = st.columns(2)
     with col1:
         st.subheader(" ")
