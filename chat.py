@@ -62,6 +62,15 @@ def chat():
         "3. Review chat history in the sidebar."
     )
 
+    st.sidebar.markdown(
+    "<div style='background-color: rgba(173, 133, 71, 1); padding: 10px; border-radius: 5px;'>"
+    "<strong>Note:</strong><br>"
+    "*Due to the current cost of API usage, you may experience limitations in output availability.<br>"
+    "*We apologize for any inconvenience this may cause.<br>"
+    "*Rest assured, the quality of the output is excellent when accessible."
+    "</div>",
+    unsafe_allow_html=True)
+
     # Main content area
     input_text = st.text_input("Enter your medical question:", key="input")
     submit_button = st.button("Ask")
