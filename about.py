@@ -17,15 +17,24 @@ l6 = "https://lottie.host/6802bb15-0d2e-4b0a-af28-32c0b8c4c31a/TKMi9L7zkK.json"
 l7 = "https://lottie.host/4f47e133-f8b8-4eab-bd9e-b4ee759f90ea/ZWkQwQyPsW.json"
 l8 = "https://lottie.host/33f81951-c5a3-4a57-a9f2-cbdd81fa8119/pdDzXH4HdU.json"
 
-def about():
+def about(theme):
+    # Apply CSS based on the selected theme
+    if theme == "Dark":
+        text_color = "white"
+        background_color = "#0f0f0f"  # Dark background
+    else:  # Light theme
+        text_color = "black"
+        background_color = "white"  # Light background
+
     col1, col2 = st.columns(2)
     with col1:
-        st.title("Know About Us!!")
+        st.markdown(f"<h1 style='color: {text_color};'>Know About Us!!</h1>", unsafe_allow_html=True)
         st.header(" ")
         st.header(" ")
-        st.subheader("Welcome to AI-Powered Medicare ChatBot, a revolutionary platform that leverages AI to provide real-time medical insights and healthcare assistance. Our project combines cutting-edge AI technologies to analyze medical reports, patient data, and health-related images, while engaging users in intelligent conversations about their health and medical needs.")
+        st.markdown(f"<h3 style='color: {text_color};'>Welcome to AI-Powered Medicare ChatBot, a revolutionary platform that leverages AI to provide real-time medical insights and healthcare assistance. Our project combines cutting-edge AI technologies to analyze medical reports, patient data, and health-related images, while engaging users in intelligent conversations about their health and medical needs.</h3>", unsafe_allow_html=True)
     with col2:
         st_lottie(l1)
+    
     st.write("---")
     
     col3, col4 = st.columns(2)
@@ -34,11 +43,11 @@ def about():
     with col4:
         st.header(" ")
         st.header(" ")
-        st.title("Our Mission")
-        st.subheader("Empowering individuals and healthcare providers with innovative AI-driven tools to unlock valuable insights from medical data effortlessly and securely. Our goal is to enhance patient care by delivering cutting-edge healthcare solutions through AI.")
-        st.markdown("- **Empower**: Empower patients and healthcare professionals with the tools and insights needed for informed medical decisions.")
-        st.markdown("- **Innovate**: Push the boundaries of healthcare technology by leveraging the latest advancements in AI and medical data analysis.")
-        st.markdown("- **Simplify**: Simplify healthcare data analysis and interaction, making advanced AI technologies accessible and easy-to-use for everyone.")
+        st.markdown(f"<h1 style='color: {text_color};'>Our Mission</h1>", unsafe_allow_html=True)
+        st.markdown(f"<h3 style='color: {text_color};'>Empowering individuals and healthcare providers with innovative AI-driven tools to unlock valuable insights from medical data effortlessly and securely. Our goal is to enhance patient care by delivering cutting-edge healthcare solutions through AI.</h3>", unsafe_allow_html=True)
+        st.markdown("- **Empower**: Empower patients and healthcare professionals with the tools and insights needed for informed medical decisions.", unsafe_allow_html=True)
+        st.markdown("- **Innovate**: Push the boundaries of healthcare technology by leveraging the latest advancements in AI and medical data analysis.", unsafe_allow_html=True)
+        st.markdown("- **Simplify**: Simplify healthcare data analysis and interaction, making advanced AI technologies accessible and easy-to-use for everyone.", unsafe_allow_html=True)
 
     st.write("---")
     
@@ -46,8 +55,9 @@ def about():
     with col9:
         st.header(" ")
         st.header(" ")
-        st.title("Our Commitment to Healthcare Excellence")
-        st.subheader("At Medicare AI, we are dedicated to delivering excellence in healthcare services through AI. Our platform combines cutting-edge AI technologies with intuitive user interfaces to provide a seamless experience in medical data analysis and patient care.")
+        st.markdown(f"<h1 style='color: {text_color};'>Our Commitment to Healthcare Excellence</h1>", unsafe_allow_html=True)
+        st.markdown(f"<h3 style='color: {text_color};'>At Medicare AI, we are dedicated to delivering excellence in healthcare services through AI. Our platform combines cutting-edge AI technologies with intuitive user interfaces to provide a seamless experience in medical data analysis and patient care.</h3>", unsafe_allow_html=True)
+
     with col10:
         st_lottie(l7)
     
@@ -59,50 +69,13 @@ def about():
     with col12:
         st.header(" ")
         st.header(" ")
-        st.title("Data-driven Medical Innovation")
-        st.subheader("We believe in the power of data to drive healthcare innovation. Our platform empowers individuals and healthcare providers to unlock the full potential of their medical data, enabling better patient outcomes and more informed decision-making.")
+        st.markdown(f"<h1 style='color: {text_color};'>Contact Us</h1>", unsafe_allow_html=True)
+        st.markdown(f"<h3 style='color: {text_color};'>If you have any questions or need assistance, feel free to reach out to us at support@medicareai.com.</h3>", unsafe_allow_html=True)
 
-    # Add footer with CSS for fixed positioning
-    st.write("---")
-    st.title("Explore Our Advanced Healthcare Features")
-    
-    col5, col6, col7, col8 = st.columns(4)
-    with col5:
-        st_lottie(l3)
-        st.write("PDF Medical Report Analysis")
-        st.write("Analyze PDF medical reports with precision. Engage with an AI-powered chatbot to extract actionable insights and knowledge from health data effortlessly.") 
+    # Footer
+    st.markdown(f"<footer style='position: fixed; bottom: 0; width: 100%; text-align: center; background-color: {background_color}; color: {text_color}; padding: 10px;'>"
+                 "<p>&copy; Powered by Medicare AI ©️ 2024</p>"
+                 "</footer>", unsafe_allow_html=True)
 
-    with col6:
-        st_lottie(l4)
-        st.write("CSV Patient Data Analysis")
-        st.write("Visualize and analyze patient data from CSV files with ease. Pose natural language queries for patient data exploration and receive instant medical insights.")
-
-    with col7:
-        st_lottie(l5)
-        st.write("Medical Image Analysis")
-        st.write("Utilize advanced object detection algorithms for medical images. Accurately identify objects within images to assist in diagnosis and analysis.")
-
-    with col8:
-        st_lottie(l6)
-        st.write("Conversational Medical AI")
-        st.write("Engage in insightful medical conversations powered by AI. Receive intelligent responses tailored to your health inquiries and improve patient care through AI.")
-
-    st.markdown(
-        """
-        <style>
-        .footer {
-            position: fixed;
-            bottom: 0;
-            width: 80%;
-            background-color: #000000;
-            text-align: center;
-            padding: 10px 0;
-        }
-        </style>
-        <div class="footer">
-            Powered by Medicare AI ©️ 2024
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
+# Call the about function with the desired theme
+# Example: about("Light") or about("Dark")
