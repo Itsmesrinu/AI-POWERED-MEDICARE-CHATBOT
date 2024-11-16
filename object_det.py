@@ -13,49 +13,57 @@ def load_lottieur(url):
 
 l1 = "https://lottie.host/3244e710-2470-4ade-8d4f-2654e645be11/loLAddQjXP.json"
 
-GOOGLE_API_KEY = "API KEY"
+GOOGLE_API_KEY = "YOUR_API_KEY"  # Replace with your actual API key
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Set up the model
 generation_config = {
-  "temperature": 0.9,
-  "top_p": 0.95,
-  "top_k": 40,
-  "max_output_tokens": 1024,
+    "temperature": 0.9,
+    "top_p": 0.95,
+    "top_k": 40,
+    "max_output_tokens": 1024,
 }
 
-def object_det():
-    st.title("Medical Image Analysis 🔍")
+def object_det(theme):
+    # Set colors based on the selected theme
+    if theme == "Dark":
+        text_color = "white"
+        background_color = "#0f0f0f"
+        note_background = "rgba(173, 133, 71, 1)"
+    else:  # Light theme
+        text_color = "black"
+        background_color = "white"
+        note_background = "rgba(173, 133, 71, 0.1)"
 
-    st.sidebar.title("Instructions")
-    st.sidebar.write("1. Upload the Image of medical report,tablets,etc.,")
-    st.sidebar.write("2. Enter your quiery exactly what you want to know about the uploaded IMG .")
-    st.sidebar.write("3. Then Click enter or Identify the objects button below.")
+    st.markdown(f"<h1 style='color: {text_color};'>Medical Image Analysis 🔍</h1>", unsafe_allow_html=True)
+
+    st.sidebar.markdown("<h3>Instructions</h3>", unsafe_allow_html=True)
+    st.sidebar.write("1. Upload the Image of medical report, tablets, etc.")
+    st.sidebar.write("2. Enter your query exactly what you want to know about the uploaded image.")
+    st.sidebar.write("3. Then click enter or the Identify the objects button below.")
     st.sidebar.write("4. Get insights from the AI chatbot.")
-     # Highlighted note under instructions
+    
+    # Highlighted note under instructions
     st.sidebar.markdown(
-    "<div style='background-color: rgba(173, 133, 71, 1); padding: 10px; border-radius: 5px;'>"
-    "<strong>Note:</strong><br>"
-    "*Due to the current cost of API usage, you may experience limitations in output availability.<br>"
-    "*We apologize for any inconvenience this may cause.<br>"
-    "*Rest assured, the quality of the output is excellent when accessible."
-    "</div>",
-    unsafe_allow_html=True)
-
+        f"<div style='background-color: {note_background}; padding: 10px; border-radius: 5px;'>"
+        "<strong>Note:</strong><br>"
+        "*Due to the current cost of API usage, you may experience limitations in output availability.<br>"
+        "*We apologize for any inconvenience this may cause.<br>"
+        "*Rest assured, the quality of the output is excellent when accessible."
+        "</div>",
+        unsafe_allow_html=True
+    )
 
     col1, col2 = st.columns(2)
     with col1:
         st.subheader(" ")
         st.subheader(" ")
         st.subheader(" ")
-        st.subheader("Leverage cutting-edge AI technology for medical image analysis. Our platform identifies key objects and areas in medical images, assisting in diagnostics, research, and improving overall patient care.")
-        
-        # Hide the disclaimer initially
-        st.write("")
+        st.markdown(f"<h3 style='color: {text_color};'>Leverage cutting-edge AI technology for medical image analysis. Our platform identifies key objects and areas in medical images, assisting in diagnostics, research, and improving overall patient care.</h3>", unsafe_allow_html=True)
 
-        # Show the disclaimer if the button is clicked
+        # Disclaimer
         with st.expander("Disclaimer ⚠️", expanded=False):
-            st.markdown("***Instructions for Medical Image Analysis***")
+            st.markdown(f"<span style='color: {text_color};'>***Instructions for Medical Image Analysis***</span>", unsafe_allow_html=True)
             st.write("Upload Your Medical Image: Start by uploading an image, such as an X-ray, MRI, or other medical imagery, using the file uploader.")
             st.write("Explore Image Details: Once uploaded, the image will be displayed along with its dimensions. Review the image details before proceeding.")
             st.write("Pose Your Medical Query: Optionally, input a specific question related to the medical image, such as ‘Identify abnormalities in the lung region’.")
@@ -66,18 +74,12 @@ def object_det():
         
         disclaimer_message = """This tool is optimized for medical images such as X-rays, MRIs, and CT scans. Upload medical images for the best results 🙂"""
 
-        # Hide the disclaimer initially
-        st.write("")
-
-        # Show the disclaimer if the button is clicked
         with st.expander("Disclaimer About Tool ⚠️", expanded=False):
-            st.markdown(disclaimer_message)
+            st.markdown(f"<span style='color: {text_color};'>{disclaimer_message}</span>", unsafe_allow_html=True)
 
     with col2:
         st_lottie(l1)
 
-    
-    
     # Upload medical image through Streamlit
     uploaded_image = st.file_uploader("Choose a medical image (X-ray, MRI, etc.) ...", type=["jpg", "jpeg", "png"])
 
@@ -93,12 +95,19 @@ def object_det():
         question = st.text_input("Medical Query? (e.g., Identify abnormalities in the lung)")
 
         if st.button("Identify the objects"):
-
             st.success("Detecting...")
 
+            # Assuming the model can take a question and an image
             vision_model = genai.GenerativeModel('gemini-1.5-pro')
-            response = vision_model.generate_content([question, image])
+            response = vision_model.generate_content([question, uploaded_image])
 
-            st.write("The objects or areas detected are: \n", response.text)
+            # Display the response from the AI model
+            st.write("The objects or areas detected are: \n", response)
 
-            st.success("Thanks for using the Medical Image Analysis tool! 🤩")
+    # Footer
+    st.markdown(f"<footer style='position: fixed; bottom: 0; width: 100%; text-align: center; background-color: {background_color}; color: {text_color}; padding: 10px;'>"
+                 "<p>&copy; Powered by Medicare AI ©️ 2024</p>"
+                 "</footer>", unsafe_allow_html=True)
+
+# Call the object_det function from elsewhere in your code, providing the theme
+# Example: object_det("Light") or object_det("Dark")

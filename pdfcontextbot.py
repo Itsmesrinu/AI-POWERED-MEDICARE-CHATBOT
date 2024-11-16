@@ -11,7 +11,6 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 
-
 def load_lottieur(url):
     r = requests.get(url)
     if r.status_code != 200:
@@ -29,7 +28,7 @@ def get_pdf_text(pdf_docs):
     for pdf in pdf_docs:
         pdf_reader = PdfReader(pdf)
         for page in pdf_reader.pages:
-            text += page.extract_text()
+            text += page.extract_text() or ""
     return text
 
 def get_text_chunks(text):
@@ -76,40 +75,50 @@ def user_input(user_question):
         return_only_outputs=True
     )
 
-    print(response)
     st.write("Reply: ", response["output_text"])
 
-def pdfcontextbot():
-    st.header("Chat with Medical PDF Context")
+def pdfcontextbot(theme):
+    # Set colors based on the selected theme
+    if theme == "Dark":
+        text_color = "white"
+        background_color = "#0f0f0f"
+        note_background = "rgba(173, 133, 71, 1)"
+    else:  # Light theme
+        text_color = "black"
+        background_color = "white"
+        note_background = "rgba(173, 133, 71, 0.1)"
+
+    st.write(f"<style>body{{background-color: {background_color};}}</style>", unsafe_allow_html=True)
+
+    st.markdown(f"<h1 style='color: {text_color};'>Chat with Medical PDF Context</h1>", unsafe_allow_html=True)
 
     # Sidebar instructions
     st.sidebar.title("Instructions")
     st.sidebar.write("1. Upload your PDF medical report.")
-    st.sidebar.write("2.  Click the `Submit & Process` button.")
+    st.sidebar.write("2. Click the `Submit & Process` button.")
     st.sidebar.write("3. Type your question about the medical PDF.")
     st.sidebar.write("4. Get insights from the AI chatbot.")
-     # Highlighted note under instructions
+    
+    # Highlighted note under instructions
     st.sidebar.markdown(
-    "<div style='background-color: rgba(173, 133, 71, 1); padding: 10px; border-radius: 5px;'>"
-    "<strong>Note:</strong><br>"
-    "*Due to the current cost of API usage, you may experience limitations in output availability.<br>"
-    "*We apologize for any inconvenience this may cause.<br>"
-    "*Rest assured, the quality of the output is excellent when accessible."
-    "</div>",
-    unsafe_allow_html=True)
+        f"<div style='background-color: {note_background}; padding: 10px; border-radius: 5px;'>"
+        "<strong>Note:</strong><br>"
+        "*Due to the current cost of API usage, you may experience limitations in output availability.<br>"
+        "*We apologize for any inconvenience this may cause.<br>"
+        "*Rest assured, the quality of the output is excellent when accessible."
+        "</div>",
+        unsafe_allow_html=True
+    )
 
     col1, col2 = st.columns(2)
     with col1:
         st.subheader(" ")
         st.subheader(" ")
-        st.subheader("Leverage the power of AI to provide medical insights based on the content of uploaded medical reports. By analyzing the text within these documents, our chatbot offers accurate responses to health-related questions, enhancing your understanding of medical information.")
-        
-        # Hide the disclaimer initially
-        st.write("")
+        st.markdown(f"<h3 style='color: {text_color};'>Leverage the power of AI to provide medical insights based on the content of uploaded medical reports. By analyzing the text within these documents, our chatbot offers accurate responses to health-related questions, enhancing your understanding of medical information.</h3>", unsafe_allow_html=True)
 
-        # Show the disclaimer if the button is clicked
+        # Disclaimer
         with st.expander("Disclaimer ⚠️", expanded=False):
-            st.markdown("***Instructions for Medical PDF Context Chat***")
+            st.markdown(f"<span style='color: {text_color};'>***Instructions for Medical PDF Context Chat***</span>", unsafe_allow_html=True)
             st.write("Ask a Question: Enter your question in the text input field to inquire about specific medical topics or seek clarification on information contained within the medical reports.")
             st.markdown("Submit & Process: After typing your question, click the `Submit & Process` button to initiate the analysis of the uploaded medical PDF files. The chatbot will provide a response based on the context found within these documents.")
             st.write("View Response: Once processing is complete, the chatbot will generate a response to your question. The answer will be displayed below the input field, providing relevant medical insights from the document.")
@@ -132,3 +141,10 @@ def pdfcontextbot():
     if user_question:
         user_input(user_question)
 
+    # Footer
+    st.markdown(f"<footer style='position: fixed; bottom: 0; width: 100%; text-align: center; background-color: {background_color}; color: {text_color}; padding: 10px;'>"
+                 "<p>&copy; Powered by Medicare AI ©️ 2024</p>"
+                 "</footer>", unsafe_allow_html=True)
+
+# Call the pdfcontextbot function from elsewhere in your code, providing the theme
+# Example: pdfcontextbot("Light") or pdfcontextbot("Dark")
