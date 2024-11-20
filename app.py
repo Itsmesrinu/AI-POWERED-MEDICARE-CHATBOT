@@ -20,7 +20,7 @@ def main():
             """
             <style>
             .stApp {
-                background-color: #1e1e1e; /* Dark background */
+                background-color: #101414; /* Dark background */
                 color: white; /* White text */
             }
             .sidebar .sidebar-content {
