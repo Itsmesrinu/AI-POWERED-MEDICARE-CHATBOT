@@ -1,12 +1,12 @@
 # AI-Powered-Medicare-ChatBot
 # LIVE-APP LINK : https://ai-powered-medicare-chatbot-cve9syzzk8pdkpqemjdzmi.streamlit.app/
 # OUTPUTS:
+![Screenshot 2024-11-16 021951](https://github.com/user-attachments/assets/232fde4b-a79e-4b46-b826-3dfb824054fe)
+![Screenshot 2024-11-16 022008](https://github.com/user-attachments/assets/cb1ae147-70c4-46fd-9b02-b96d7ec407ea)
 ![Screenshot 2024-11-16 022304](https://github.com/user-attachments/assets/f1668804-fa88-4032-99f6-576b2d83b652)
 ![Screenshot 2024-11-16 022251](https://github.com/user-attachments/assets/fad92f80-63cc-4017-b8eb-9b9199c038fe)
 ![Screenshot 2024-11-16 022233](https://github.com/user-attachments/assets/93fa98e8-6a50-4569-ac0d-8275f05a4e69)
 ![Screenshot 2024-11-16 022219](https://github.com/user-attachments/assets/3f809aa1-7f34-4eb4-b4b7-2e06375ef9b1)
-![Screenshot 2024-11-16 022008](https://github.com/user-attachments/assets/cb1ae147-70c4-46fd-9b02-b96d7ec407ea)
-![Screenshot 2024-11-16 021951](https://github.com/user-attachments/assets/232fde4b-a79e-4b46-b826-3dfb824054fe)
 ![Screenshot 2024-11-16 022316](https://github.com/user-attachments/assets/a1b522e1-a805-42b9-bc55-d44d25cf5fbc)
 
 
