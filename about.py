@@ -41,9 +41,10 @@ def about(theme):
     with col3:
         st_lottie(l2)
     with col4:
-        st.header(" ")
-        st.header(" ")
+        
         st.markdown(f"<h1 style='color: {text_color};'>Our Mission</h1>", unsafe_allow_html=True)
+        st.header(" ")
+        st.header(" ")
         st.markdown(f"<h3 style='color: {text_color};'>Empowering healthcare professionals and patients with innovative AI technologies to unlock valuable medical insights effortlessly and efficiently. We strive to:</h3>", unsafe_allow_html=True)
         st.markdown(f"<p style='color: {text_color};'>- **Empower**: Provide tools to enable healthcare professionals to make informed decisions based on data insights.</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='color: {text_color};'>- **Innovate**: Push the boundaries of AI and healthcare data analysis to deliver impactful solutions.</p>", unsafe_allow_html=True)
@@ -54,6 +55,8 @@ def about(theme):
     col9, col10 = st.columns(2)
     with col9:
         st.markdown(f"<h1 style='color: {text_color};'>Our Commitment to Excellence</h1>", unsafe_allow_html=True)
+        st.header(" ")
+        st.header(" ")
         st.markdown(f"<h3 style='color: {text_color};'>At AI-Powered Medicare ChatBot, we are committed to delivering excellence in healthcare innovation. Our solutions integrate advanced AI technologies with intuitive user interfaces to ensure seamless experiences for all users.</h3>", unsafe_allow_html=True)
     with col10:
         st_lottie(l7)
@@ -65,6 +68,8 @@ def about(theme):
         st_lottie(l8)
     with col12:
         st.markdown(f"<h1 style='color: {text_color};'>Data-Driven Healthcare Innovation</h1>", unsafe_allow_html=True)
+        st.header(" ")
+        st.header(" ")
         st.markdown(f"<h3 style='color: {text_color};'>We believe in leveraging the power of AI to drive innovation in healthcare. Our platform empowers healthcare professionals to explore insights, make informed decisions, and unlock new opportunities for growth in the medical domain.</h3>", unsafe_allow_html=True)
 
     st.write("---")
