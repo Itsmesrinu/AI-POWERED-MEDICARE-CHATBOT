@@ -1,4 +1,13 @@
 # AI-Powered-Medicare-ChatBot
+# LIVE-APP LINK : https://ai-powered-medicare-chatbot-cve9syzzk8pdkpqemjdzmi.streamlit.app/
+# OUTPUTS:
+![Screenshot 2024-11-16 022316](https://github.com/user-attachments/assets/28ad3b99-b8bb-4d0a-8cc1-2c2857a4530f)
+![Screenshot 2024-11-16 022304](https://github.com/user-attachments/assets/f558322e-8b7a-42b8-b2e8-0c3081f7746e)
+![Screenshot 2024-11-16 022251](https://github.com/user-attachments/assets/4756681f-b60a-4f5e-aeb5-3077eb0d2f06)
+![Screenshot 2024-11-16 022233](https://github.com/user-attachments/assets/d499c338-d4ac-40a4-ae09-4c5a49962195)
+![Screenshot 2024-11-16 022219](https://github.com/user-attachments/assets/b60ba247-a515-4a31-b58e-34a7f14351ba)
+![Screenshot 2024-11-16 022008](https://github.com/user-attachments/assets/3b7e5538-fbba-44f7-8e61-81174ed52b32)
+![Screenshot 2024-11-16 021951](https://github.com/user-attachments/assets/cee4466a-6bce-426c-85ba-394b3c46c62b)
 
 ## Project Overview
 The AI-Powered Medicare ChatBot is an intelligent conversational platform designed to provide accurate medical insights and assistance to users by leveraging advanced Generative AI and NLP technologies. It allows users to ask questions, seek medical clarifications, and explore insights from medical literature and personal health data through an intuitive chat interface. This tool is developed to offer easily accessible healthcare information, bridging the gap between patients and valuable medical knowledge.
