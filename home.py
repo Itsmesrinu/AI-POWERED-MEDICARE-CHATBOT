@@ -48,7 +48,7 @@ def home(theme):
         }
         </style>
         """, unsafe_allow_html=True)
-        st.markdown(f'<p class="big-font bold-text" style="color: {text_color};">Welcome to Medicare AI</p>', unsafe_allow_html=True)
+        st.markdown(f'<p class="big-font bold-text" style="color: #a17739;">Welcome to Medicare AI</p>', unsafe_allow_html=True)
         st.markdown(f"<h3 style='color: {text_color};'>Your Intelligent Healthcare Companion! 🩺🤖</h3>", unsafe_allow_html=True)
         st.markdown(f"<p style='color: {text_color};'>Have questions about your medical data or reports? Need quick, accurate health insights? You're in the right place!</p>", unsafe_allow_html=True)
 
