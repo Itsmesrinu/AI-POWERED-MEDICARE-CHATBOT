@@ -2,6 +2,7 @@ pip
 streamlit
 streamlit-option-menu
 streamlit-lottie
+seaborn
 google-generativeai
 pandasai
 protobuf
