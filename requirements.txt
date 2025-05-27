@@ -4,7 +4,11 @@ streamlit-option-menu
 streamlit-lottie
 seaborn
 google-generativeai
-pandasai
+pandas==2.0.3  # Last stable version before major internal changes
+pandasai==2.0.0  # Compatible version
+python-dotenv==1.0.0  # If using environment variables
+
+#pandasai
 protobuf
 PyPDF2
 tiktoken
