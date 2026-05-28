@@ -1,15 +1,13 @@
 import streamlit as st
 from streamlit_lottie import st_lottie
 import requests
-from PyPDF2 import PdfReader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from pypdf import PdfReader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 import os
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-import google.generativeai as genai
-from langchain.vectorstores import FAISS
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
+from langchain_community.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 
 def load_lottieur(url):
     r = requests.get(url)
@@ -21,7 +19,6 @@ l1 = "https://lottie.host/bebe1ee0-b4b6-4e99-8c43-b3d881996b31/GTKVqgNDU8.json"
 
 # Add your API key here directly
 GOOGLE_API_KEY = "API KEY"
-genai.configure(api_key=GOOGLE_API_KEY)
 
 def get_pdf_text(pdf_docs):
     text = ""

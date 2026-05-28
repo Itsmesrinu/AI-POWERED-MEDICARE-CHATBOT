@@ -1,7 +1,7 @@
 import streamlit as st
 from streamlit_lottie import st_lottie
 import requests
-import google.generativeai as genai
+from google import genai
 
 def load_lottieur(url):
     r = requests.get(url)
@@ -13,7 +13,14 @@ l1 = "https://lottie.host/3dffcec0-9580-4675-be95-ddd7e09834a7/YMQN5pO39Q.json"
 
 # Configure Google API
 GOOGLE_API_KEY = "API KEY"
-genai.configure(api_key=GOOGLE_API_KEY)
+client = genai.Client(api_key=GOOGLE_API_KEY)
+
+def get_gemini_response(question):
+    response = client.models.generate_content(
+        model='gemini-1.5-pro',
+        contents=question,
+    )
+    return response.text
 
 def chat(theme):
     # Apply CSS based on the selected theme
@@ -78,12 +85,11 @@ def chat(theme):
     submit_button = st.button("Ask")
 
     if submit_button and input_text:
-        response = get_gemini_response(input_text)  # Make sure this function is defined
+        response = get_gemini_response(input_text)
         st.session_state['chat_history'].append(("You", input_text))
         st.markdown(f"<h3 style='color: {text_color};'>Response:</h3>", unsafe_allow_html=True)
-        for chunk in response:
-            st.write(chunk.text, color=text_color)  # Note: `color` argument is not valid here
-            st.session_state['chat_history'].append(("Medicare AI", chunk.text))
+        st.write(response)
+        st.session_state['chat_history'].append(("Medicare AI", response))
 
     # Footer
     st.markdown(f"<footer style='position: fixed; bottom: 0; width: 100%; text-align: center; background-color: {background_color}; color: {text_color}; padding: 10px;'>"
