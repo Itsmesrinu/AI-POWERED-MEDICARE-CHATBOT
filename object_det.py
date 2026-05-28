@@ -1,7 +1,8 @@
 import streamlit as st
 from PIL import Image
 import os
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 from streamlit_lottie import st_lottie
 import requests
 
@@ -14,15 +15,15 @@ def load_lottieur(url):
 l1 = "https://lottie.host/3244e710-2470-4ade-8d4f-2654e645be11/loLAddQjXP.json"
 
 GOOGLE_API_KEY = "YOUR_API_KEY"  # Replace with your actual API key
-genai.configure(api_key=GOOGLE_API_KEY)
+client = genai.Client(api_key=GOOGLE_API_KEY)
 
 # Set up the model
-generation_config = {
-    "temperature": 0.9,
-    "top_p": 0.95,
-    "top_k": 40,
-    "max_output_tokens": 1024,
-}
+generation_config = types.GenerateContentConfig(
+    temperature=0.9,
+    top_p=0.95,
+    top_k=40,
+    max_output_tokens=1024,
+)
 
 def object_det(theme):
     # Set colors based on the selected theme
@@ -85,7 +86,7 @@ def object_det(theme):
 
     if uploaded_image is not None:
         # Display the uploaded image
-        st.image(uploaded_image, caption="Uploaded Medical Image.", use_column_width=True)
+        st.image(uploaded_image, caption="Uploaded Medical Image.", use_container_width=True)
 
         # Process the image (example: get image dimensions)
         image = Image.open(uploaded_image)
@@ -97,12 +98,16 @@ def object_det(theme):
         if st.button("Identify the objects"):
             st.success("Detecting...")
 
-            # Assuming the model can take a question and an image
-            vision_model = genai.GenerativeModel('gemini-1.5-pro')
-            response = vision_model.generate_content([question, uploaded_image])
+            uploaded_image.seek(0)
+            image = Image.open(uploaded_image)
+            response = client.models.generate_content(
+                model='gemini-1.5-pro',
+                contents=[question, image],
+                config=generation_config,
+            )
 
             # Display the response from the AI model
-            st.write("The objects or areas detected are: \n", response)
+            st.write("The objects or areas detected are: \n", response.text)
 
     # Footer
     st.markdown(f"<footer style='position: fixed; bottom: 0; width: 100%; text-align: center; background-color: {background_color}; color: {text_color}; padding: 10px;'>"
