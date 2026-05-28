@@ -1,11 +1,15 @@
+import os
+
 import streamlit as st
 from streamlit_lottie import st_lottie
 from pandasai.llm.openai import OpenAI
 import requests
-import os
 import pandas as pd
 from pandasai import SmartDataframe
 import matplotlib
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Use a non-interactive backend
 matplotlib.use('Agg')
@@ -19,7 +23,7 @@ def load_lottieur(url):
 
 l1 = "https://lottie.host/2f7cf9a0-3475-430c-87c7-1664b5e17660/GUdpy07yaC.json"
 
-openai_api_key = "API KEY"
+openai_api_key = os.environ.get("OPENAI_API_KEY", "")
 
 def chat_with_csv(df, prompt):
     llm = OpenAI(api_token=openai_api_key)
@@ -95,17 +99,22 @@ def csv(theme):
     input_text = st.text_area("Enter the medical query", key="query")
 
     # Perform analysis
+    MAX_INPUT_LENGTH = 5000
     if st.button("Chat with CSV"):
         if input_text:
-            st.info("Your Query: " + input_text)
-            result = chat_with_csv(data, input_text)
-
-            # Display the result
-            if isinstance(result, str):  # Assuming result is a string response
-                st.success(result)
+            if len(input_text) > MAX_INPUT_LENGTH:
+                st.error(f"Input too long. Please limit your query to {MAX_INPUT_LENGTH} characters.")
             else:
-                # Handle the case where result is not a string
-                st.error("Unexpected result format.")
+                input_text = input_text.strip()
+                st.info("Your Query: " + input_text)
+                result = chat_with_csv(data, input_text)
+
+                # Display the result
+                if isinstance(result, str):  # Assuming result is a string response
+                    st.success(result)
+                else:
+                    # Handle the case where result is not a string
+                    st.error("Unexpected result format.")
 
     # Footer
     st.markdown(f"<footer style='position: fixed; bottom: 0; width: 100%; text-align: center; background-color: {background_color}; color: {text_color}; padding: 10px;'>"

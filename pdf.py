@@ -1,3 +1,6 @@
+import html
+import os
+
 import streamlit as st
 from streamlit_lottie import st_lottie
 import requests
@@ -9,6 +12,9 @@ from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from htmltemplate import css, bot_template, user_template
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def load_lottieur(url):
     r = requests.get(url)
@@ -18,7 +24,7 @@ def load_lottieur(url):
 
 l1 = "https://lottie.host/dfa2260c-7c80-4671-8bb5-fd853f9c5f37/81mapnwT5f.json"
 
-api_key = "YOUR_API_KEY"  # Replace with your actual API key
+api_key = os.environ.get("OPENAI_API_KEY", "")
 
 def get_pdf_text(pdf_docs):
     text = ""
@@ -55,10 +61,11 @@ def handle_userinput(user_question):
     st.session_state.chat_history = response['chat_history']
 
     for i, message in enumerate(st.session_state.chat_history):
+        sanitized = html.escape(message.content)
         if i % 2 == 0:
-            st.write(user_template.replace("{{MSG}}", message.content), unsafe_allow_html=True)
+            st.write(user_template.replace("{{MSG}}", sanitized), unsafe_allow_html=True)
         else:
-            st.write(bot_template.replace("{{MSG}}", message.content), unsafe_allow_html=True)
+            st.write(bot_template.replace("{{MSG}}", sanitized), unsafe_allow_html=True)
 
 def pdf(theme):
     # Set colors based on the selected theme
@@ -135,10 +142,14 @@ def pdf(theme):
         st_lottie(l1)
 
     # Handle user input
+    MAX_INPUT_LENGTH = 5000
     if st.session_state.conversation:
         user_question = st.text_input("Ask a question about your medical report:")
         if st.button("Submit"):
-            handle_userinput(user_question)
+            if len(user_question) > MAX_INPUT_LENGTH:
+                st.error(f"Input too long. Please limit your question to {MAX_INPUT_LENGTH} characters.")
+            elif user_question.strip():
+                handle_userinput(user_question.strip())
 
     # Footer
     st.markdown(f"<footer style='position: fixed; bottom: 0; width: 100%; text-align: center; background-color: {background_color}; color: {text_color}; padding: 10px;'>"

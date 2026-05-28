@@ -1,15 +1,19 @@
+import os
+
 import streamlit as st
 from streamlit_lottie import st_lottie
 import requests
 from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-import os
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 import google.generativeai as genai
 from langchain.vectorstores import FAISS
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def load_lottieur(url):
     r = requests.get(url)
@@ -19,9 +23,9 @@ def load_lottieur(url):
 
 l1 = "https://lottie.host/bebe1ee0-b4b6-4e99-8c43-b3d881996b31/GTKVqgNDU8.json"
 
-# Add your API key here directly
-GOOGLE_API_KEY = "API KEY"
-genai.configure(api_key=GOOGLE_API_KEY)
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+if GOOGLE_API_KEY:
+    genai.configure(api_key=GOOGLE_API_KEY)
 
 def get_pdf_text(pdf_docs):
     text = ""
@@ -138,8 +142,12 @@ def pdfcontextbot(theme):
     
     user_question = st.text_input("Ask a Medical Question from the PDF Files")
 
+    MAX_INPUT_LENGTH = 5000
     if user_question:
-        user_input(user_question)
+        if len(user_question) > MAX_INPUT_LENGTH:
+            st.error(f"Input too long. Please limit your question to {MAX_INPUT_LENGTH} characters.")
+        else:
+            user_input(user_question.strip())
 
     # Footer
     st.markdown(f"<footer style='position: fixed; bottom: 0; width: 100%; text-align: center; background-color: {background_color}; color: {text_color}; padding: 10px;'>"
