@@ -1,3 +1,5 @@
+import html
+
 import streamlit as st
 
 # CSS for chat messages
@@ -62,10 +64,11 @@ user_template = '''
 
 def display_chat(messages):
     for message in messages:
+        sanitized = html.escape(message['content'])
         if message['role'] == 'user':
-            st.markdown(user_template.replace("{{MSG}}", message['content']), unsafe_allow_html=True)
+            st.markdown(user_template.replace("{{MSG}}", sanitized), unsafe_allow_html=True)
         elif message['role'] == 'bot':
-            st.markdown(bot_template.replace("{{MSG}}", message['content']), unsafe_allow_html=True)
+            st.markdown(bot_template.replace("{{MSG}}", sanitized), unsafe_allow_html=True)
 
 def main():
     st.title("Chat with Medicare AI")

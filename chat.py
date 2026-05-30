@@ -1,7 +1,12 @@
+import os
+
 import streamlit as st
 from streamlit_lottie import st_lottie
 import requests
 import google.generativeai as genai
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def load_lottieur(url):
     r = requests.get(url)
@@ -11,9 +16,12 @@ def load_lottieur(url):
 
 l1 = "https://lottie.host/3dffcec0-9580-4675-be95-ddd7e09834a7/YMQN5pO39Q.json"
 
-# Configure Google API
-GOOGLE_API_KEY = "API KEY"
-genai.configure(api_key=GOOGLE_API_KEY)
+# Configure Google API from environment variable
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+if not GOOGLE_API_KEY:
+    st.warning("GOOGLE_API_KEY environment variable is not set. Chat functionality will be unavailable.")
+else:
+    genai.configure(api_key=GOOGLE_API_KEY)
 
 def chat(theme):
     # Apply CSS based on the selected theme
@@ -77,8 +85,13 @@ def chat(theme):
     input_text = st.text_input("Enter your medical question:", key="input")
     submit_button = st.button("Ask")
 
+    MAX_INPUT_LENGTH = 5000
     if submit_button and input_text:
-        response = get_gemini_response(input_text)  # Make sure this function is defined
+        if len(input_text) > MAX_INPUT_LENGTH:
+            st.error(f"Input too long. Please limit your question to {MAX_INPUT_LENGTH} characters.")
+            return
+        input_text = input_text.strip()
+        response = get_gemini_response(input_text)
         st.session_state['chat_history'].append(("You", input_text))
         st.markdown(f"<h3 style='color: {text_color};'>Response:</h3>", unsafe_allow_html=True)
         for chunk in response:

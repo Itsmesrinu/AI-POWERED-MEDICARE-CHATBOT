@@ -1,9 +1,13 @@
+import os
+
 import streamlit as st
 from PIL import Image
-import os
 import google.generativeai as genai
 from streamlit_lottie import st_lottie
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def load_lottieur(url):
     r = requests.get(url)
@@ -13,8 +17,9 @@ def load_lottieur(url):
 
 l1 = "https://lottie.host/3244e710-2470-4ade-8d4f-2654e645be11/loLAddQjXP.json"
 
-GOOGLE_API_KEY = "YOUR_API_KEY"  # Replace with your actual API key
-genai.configure(api_key=GOOGLE_API_KEY)
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+if GOOGLE_API_KEY:
+    genai.configure(api_key=GOOGLE_API_KEY)
 
 # Set up the model
 generation_config = {
